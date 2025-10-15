@@ -1,9 +1,7 @@
+import AppRoutes from "./routes";
+
 function App() {
-  return (
-    <>
-      <h2>Restaurent website Admin panel </h2>
-    </>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
