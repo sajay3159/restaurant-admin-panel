@@ -12,58 +12,54 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const RecipeList = ({ recipes, onEdit, onDelete }) => {
+  if (!recipes.length) {
+    return (
+      <Typography variant="body1" color="textSecondary">
+        No recipes found.
+      </Typography>
+    );
+  }
+
   return (
-    <Grid container spacing={3}>
-      {recipes.map(({ id, name, category, imageUrl, ingredient, price }) => (
-        <Grid item key={id} xs={12} sm={6} md={4}>
-          <Card sx={{ maxWidth: 345 }}>
-            {imageUrl && (
+    <Grid container spacing={2}>
+      {recipes.map((recipe) => (
+        <Grid item key={recipe.id} xs={12} sm={6} md={4}>
+          <Card>
+            {recipe.imageUrl && (
               <CardMedia
                 component="img"
-                height="200"
-                image={imageUrl}
-                alt={name}
-                sx={{ objectFit: "cover" }}
+                sx={{ width: 280, height: 200, objectFit: "cover" }}
+                image={recipe.imageUrl}
+                alt={recipe.name}
               />
             )}
-            <CardContent>
+            <CardContent sx={{ py: 1 }}>
               <Typography variant="h6" gutterBottom>
-                {name}
+                {recipe.name}
               </Typography>
               <Typography
                 variant="subtitle2"
                 color="text.secondary"
                 gutterBottom
               >
-                {category}
+                {recipe.category}
               </Typography>
               <Typography
                 variant="body2"
                 color="text.primary"
                 fontWeight="bold"
-                gutterBottom
               >
-                Price: ${price}
+                Price: ${recipe.price}
               </Typography>
-              <Typography variant="body2" color="text.secondary" noWrap>
-                {ingredient}
-              </Typography>
+              {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                {recipe.ingredient}
+              </Typography> */}
             </CardContent>
-            <CardActions disableSpacing>
-              <IconButton
-                aria-label="edit"
-                onClick={() =>
-                  onEdit({ id, name, category, imageUrl, ingredient, price })
-                }
-                color="primary"
-              >
+            <CardActions sx={{ py: 0.5 }}>
+              <IconButton color="primary" onClick={() => onEdit(recipe)}>
                 <EditIcon />
               </IconButton>
-              <IconButton
-                aria-label="delete"
-                onClick={() => onDelete(id)}
-                color="error"
-              >
+              <IconButton color="error" onClick={() => onDelete(recipe.id)}>
                 <DeleteIcon />
               </IconButton>
             </CardActions>

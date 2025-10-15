@@ -35,7 +35,6 @@ const RecipesPage = () => {
     setLoading(true);
     try {
       const data = await getRecipes();
-      console.log("data", data);
       setRecipes(data);
     } catch (error) {
       setSnackbar({
