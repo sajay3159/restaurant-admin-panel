@@ -4,7 +4,7 @@ import {
   getCategories,
   deleteCategory,
   updateCategory,
-} from "../../api/firebaseDB";
+} from "../../api/categories";
 
 import NotificationSnackbar from "../../components/Common/NotificationSnackbar";
 import ConfirmDialog from "../../components/Common/ConfirmDialog";

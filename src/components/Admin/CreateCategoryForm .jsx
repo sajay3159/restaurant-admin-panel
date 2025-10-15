@@ -1,6 +1,6 @@
 import { Box, Button, TextField, Paper } from "@mui/material";
 import { useState } from "react";
-import { addCategory } from "../../api/firebaseDB";
+import { addCategory } from "../../api/categories";
 
 const CreateCategoryForm = ({ onCategoryAdded }) => {
   const [name, setName] = useState("");

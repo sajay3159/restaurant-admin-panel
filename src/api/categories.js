@@ -14,8 +14,6 @@ export const addCategory = async (categoryData) => {
 export const getCategories = async () => {
   const response = await fetch(`${DB_URL}/categories.json`);
   const data = await response.json();
-
-  // Convert Firebase object to array
   return Object.entries(data || {}).map(([id, value]) => ({
     id,
     ...value,
