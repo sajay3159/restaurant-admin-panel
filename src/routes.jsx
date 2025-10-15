@@ -6,21 +6,57 @@ import DashboardPage from "./pages/Dashboard/DashboardPage";
 import CategoriesPage from "./pages/Categories/CategoriesPage";
 import RecipesPage from "./pages/Recipes/Recipes";
 import OrdersPage from "./pages/Order/OrderPage";
+import NotFound from "./components/Common/NotFound";
+import { useSelector } from "react-redux";
+import PublicRoute from "./pages/Auth/PublicRoute";
+import ProtectedRoute from "./pages/Auth/ProtectedRoute";
 
 const AppRoutes = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/forget" element={<ForgetPage />} />
+      <Route
+        path="/"
+        element={
+          isLoggedIn ? (
+            <Navigate to="/admin/dashboard" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/forget"
+        element={
+          <PublicRoute>
+            <ForgetPage />
+          </PublicRoute>
+        }
+      />
 
-      <Route path="/admin" element={<AdminLayout />}>
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminLayout />
+          </ProtectedRoute>
+        }
+      >
         <Route path="dashboard" element={<DashboardPage />} />
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="recipes" element={<RecipesPage />} />
         <Route path="orders" element={<OrdersPage />} />
       </Route>
-
-      <Route path="*" element={<Navigate to="/login" replace />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
