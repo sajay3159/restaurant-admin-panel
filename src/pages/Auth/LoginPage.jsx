@@ -50,7 +50,7 @@ const LoginPage = () => {
       );
 
       setSuccess("Login successful!");
-      navigate("/dashboard");
+      navigate("/admin");
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
     } finally {
@@ -74,7 +74,7 @@ const LoginPage = () => {
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" textAlign="center" mb={2}>
-            Login
+            Admin Login
           </Typography>
 
           <form onSubmit={handleSubmit}>
