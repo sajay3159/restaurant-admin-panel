@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const CategoryList = ({ categories, onDelete }) => {
+const CategoryList = ({ categories, onDelete, onEditClick }) => {
   if (!categories.length) {
     return (
       <Typography variant="body1" color="textSecondary">
@@ -20,26 +20,26 @@ const CategoryList = ({ categories, onDelete }) => {
   }
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={2}>
       {categories.map((cat) => (
         <Grid item xs={12} sm={6} md={4} key={cat.id}>
           <Card>
             {cat.image && (
               <CardMedia
                 component="img"
-                height="140"
+                sx={{ width: 280, height: 200, objectFit: "cover" }}
                 image={cat.image}
                 alt={cat.name}
               />
             )}
-            <CardContent>
+            <CardContent sx={{ py: 1 }}>
               <Typography variant="h6">{cat.name}</Typography>
             </CardContent>
-            <CardActions>
-              <IconButton color="primary">
+            <CardActions sx={{ py: 0.5 }}>
+              <IconButton color="primary" onClick={() => onEditClick(cat)}>
                 <EditIcon />
               </IconButton>
-              <IconButton color="error" onClick={() => onDelete("abc")}>
+              <IconButton color="error" onClick={() => onDelete(cat.id)}>
                 <DeleteIcon />
               </IconButton>
             </CardActions>
