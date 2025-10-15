@@ -8,9 +8,9 @@ import {
 
 import NotificationSnackbar from "../../components/Common/NotificationSnackbar";
 import ConfirmDialog from "../../components/Common/ConfirmDialog";
-import CategoryList from "../../components/Admin/CategoryList";
-import CreateCategoryForm from "../../components/Admin/CreateCategoryForm ";
-import EditCategoryDialog from "../../components/Admin/EditCategoryDialog";
+import CategoryList from "../../components/Categories/CategoryList";
+import CreateCategoryForm from "../../components/Categories/CreateCategoryForm ";
+import EditCategoryDialog from "../../components/Categories/EditCategoryDialog";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const CategoriesPage = () => {

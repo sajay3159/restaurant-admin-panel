@@ -2,7 +2,7 @@ const DB_URL = "https://restaurent-app-e9615-default-rtdb.firebaseio.com/";
 
 // Fetch all recipes
 export const getRecipes = async () => {
-  const response = await fetch(`${DB_URL}/recipes.json`);
+  const response = await fetch(`${DB_URL}/recipe.json`);
   const data = await response.json();
   return Object.entries(data || {}).map(([id, value]) => ({
     id,
@@ -22,8 +22,8 @@ export const addRecipe = async (recipeData) => {
 
 // Update a recipe
 export const updateRecipe = async (id, updateData) => {
-  const response = await fetch(`${DB_URL}/${id}.json`, {
-    method: "PUT",
+  const response = await fetch(`${DB_URL}/recipe/${id}.json`, {
+    method: "PATCH",
     body: JSON.stringify(updateData),
     headers: { "Content-Type": "application/json" },
   });
@@ -32,7 +32,7 @@ export const updateRecipe = async (id, updateData) => {
 
 // Delete a recipe
 export const deleteRecipe = async (id) => {
-  return await fetch(`${DB_URL}/${id}.json`, {
+  return await fetch(`${DB_URL}/recipe/${id}.json`, {
     method: "DELETE",
   });
 };
