@@ -6,6 +6,7 @@ import {
   CardActions,
   Typography,
   IconButton,
+  Box,
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -51,9 +52,9 @@ const RecipeList = ({ recipes, onEdit, onDelete }) => {
               >
                 Price: ${recipe.price}
               </Typography>
-              {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                {recipe.ingredient}
-              </Typography> */}
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Box sx={{ width: "220px" }}>{recipe.ingredient}</Box>
+              </Typography>
             </CardContent>
             <CardActions sx={{ py: 0.5 }}>
               <IconButton color="primary" onClick={() => onEdit(recipe)}>
