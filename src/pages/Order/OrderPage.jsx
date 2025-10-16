@@ -10,61 +10,8 @@ import {
   Stack,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getOrders } from "../../api/order";
-
-const ordersSample = [
-  {
-    user: "john@example.com",
-    items: [
-      { recipeId: "r1", name: "Paneer Tikka", qty: 3, price: 15 },
-      { recipeId: "r2", name: "Veg Burger", qty: 1, price: 20 },
-    ],
-    totalAmount: 65,
-    status: "pending",
-    createdAt: "2025-10-15T14:30:00Z",
-    address:
-      "Suresh Kumar, Flat No. 12B, Sunrise Apartments, 5th Cross Street, Gandhi Nagar, Bangalore, Karnataka – 560001. Phone: +91 98765 43210",
-  },
-  {
-    user: "anita@example.com",
-    items: [{ recipeId: "r3", name: "French Fries", qty: 2, price: 5 }],
-    totalAmount: 10,
-    status: "processing",
-    createdAt: "2025-10-14T13:00:00Z",
-    address:
-      "Anita Sharma, Flat No. 8A, Sunrise Apartments, MG Road, Bangalore, Karnataka – 560001. Phone: +91 98765 43211",
-  },
-  {
-    user: "rajesh@example.com",
-    items: [{ recipeId: "r4", name: "Veggie Pizza", qty: 1, price: 30 }],
-    totalAmount: 30,
-    status: "delivered",
-    createdAt: "2025-10-13T19:45:00Z",
-    address:
-      "Rajesh Kumar, Flat No. 3C, Sunrise Apartments, MG Road, Bangalore, Karnataka – 560001. Phone: +91 98765 43212",
-  },
-  {
-    user: "sunita@example.com",
-    items: [
-      { recipeId: "r5", name: "Masala Dosa", qty: 2, price: 20 },
-      { recipeId: "r6", name: "Cold Coffee", qty: 1, price: 5 },
-    ],
-    totalAmount: 45,
-    status: "cancelled",
-    createdAt: "2025-10-12T18:00:00Z",
-    address:
-      "Sunita Verma, Flat No. 5D, Green Meadows, Jayanagar, Bangalore, Karnataka – 560041. Phone: +91 98765 43213",
-  },
-  {
-    user: "manish@example.com",
-    items: [{ recipeId: "r7", name: "Chicken Biryani", qty: 4, price: 50 }],
-    totalAmount: 200,
-    status: "pending",
-    createdAt: "2025-10-16T09:30:00Z",
-    address:
-      "Manish Patel, Flat No. 1A, Lotus Apartments, Electronic City, Bangalore, Karnataka – 560100. Phone: +91 98765 43214",
-  },
-];
+import { getOrders, updateOrderStatus } from "../../api/order";
+import NotificationSnackbar from "../../components/Common/NotificationSnackbar";
 
 const statuses = [
   "Pending",
@@ -74,7 +21,7 @@ const statuses = [
   "Cancelled",
 ];
 const OrdersPage = () => {
-  const [orders, setOrders] = useState("");
+  const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -97,16 +44,39 @@ const OrdersPage = () => {
     }
   };
 
-  const handleStatusChange = () => {};
+  const handleStatusChange = async (orderId, newStatus) => {
+    setLoading(true);
+    try {
+      await updateOrderStatus(orderId, newStatus);
+      setSnackbar({
+        open: true,
+        message: "Update status orders successfully",
+        severity: "success",
+      });
+      fetchOrders();
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message: "Failed to update status",
+        severity: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchOrders();
   }, []);
   return (
     <Box>
-      {loading && <Box>Loading...</Box>}
+      {loading && (
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+          Loading...
+        </Box>
+      )}
       <Stack spacing={2}>
-        {ordersSample.map((order) => (
+        {orders.map((order) => (
           <Card
             key={order.id}
             sx={{ display: "flex", justifyContent: "space-between", p: 2 }}
@@ -163,6 +133,13 @@ const OrdersPage = () => {
           </Card>
         ))}
       </Stack>
+
+      <NotificationSnackbar
+        open={snackbar.open}
+        message={snackbar.message}
+        severity={snackbar.severity}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+      />
     </Box>
   );
 };

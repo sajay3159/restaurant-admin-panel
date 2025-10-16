@@ -4,12 +4,12 @@ import ForgetPage from "./pages/Auth/ForgetPage";
 import AdminLayout from "./components/Layout/AdminLayout";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import CategoriesPage from "./pages/Categories/CategoriesPage";
-import RecipesPage from "./pages/Recipes/Recipes";
 import OrdersPage from "./pages/Order/OrderPage";
 import NotFound from "./components/Common/NotFound";
 import { useSelector } from "react-redux";
 import PublicRoute from "./pages/Auth/PublicRoute";
 import ProtectedRoute from "./pages/Auth/ProtectedRoute";
+import RecipesPage from "./pages/Recipes/RecipesPage";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

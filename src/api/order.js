@@ -12,9 +12,9 @@ export const getOrders = async () => {
 
 // Update order status
 export const updateOrderStatus = async (id, newStatus) => {
-  const response = await fetch(`${DB_URL}/updateStatusOrder/${id}.json`, {
-    method: "PUT",
-    body: JSON.stringify({ newStatus }),
+  const response = await fetch(`${DB_URL}/order/${id}.json`, {
+    method: "PATCH",
+    body: JSON.stringify({ status: newStatus }),
     headers: { "Content-Type": "application/json" },
   });
   return await response.json();
