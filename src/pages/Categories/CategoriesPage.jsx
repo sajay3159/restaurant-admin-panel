@@ -119,7 +119,14 @@ const CategoriesPage = () => {
       <CreateCategoryForm onCategoryAdded={fetchCategories} />
 
       {loading ? (
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            height: "80vh",
+            alignItems: "center",
+          }}
+        >
           <CircularProgress />
         </Box>
       ) : (
