@@ -52,7 +52,12 @@ const RecipeList = ({ recipes, onEdit, onDelete }) => {
               >
                 Price: ${recipe.price}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              <Typography
+                variant="body2"
+                component="div"
+                color="text.secondary"
+                sx={{ mt: 1 }}
+              >
                 <Box sx={{ width: "220px" }}>{recipe.ingredient}</Box>
               </Typography>
             </CardContent>
