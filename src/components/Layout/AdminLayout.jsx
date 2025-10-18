@@ -24,7 +24,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import CategoryIcon from "@mui/icons-material/Category";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useNavigate, NavLink, Outlet } from "react-router-dom";
