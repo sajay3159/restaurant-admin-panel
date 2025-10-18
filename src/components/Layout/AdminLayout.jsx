@@ -55,11 +55,6 @@ const menuItems = [
     icon: <ShoppingCartIcon />,
     path: "/admin/orders",
   },
-  {
-    text: "Logout",
-    icon: <LogoutIcon />,
-    path: "/logout",
-  },
 ];
 
 const AdminLayout = () => {
