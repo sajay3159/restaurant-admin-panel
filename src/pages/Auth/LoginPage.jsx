@@ -143,6 +143,23 @@ const LoginPage = () => {
           </form>
         </CardContent>
       </Card>
+      <Box mt={2}>
+        <Card variant="outlined">
+          <CardContent sx={{ textAlign: "center" }}>
+            <Typography variant="body2">Want to login as User?</Typography>
+            <Button
+              variant="text"
+              color="primary"
+              onClick={() =>
+                (window.location.href =
+                  "https://restaurant-user-app.vercel.app")
+              }
+            >
+              Login as User
+            </Button>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
   );
 };
