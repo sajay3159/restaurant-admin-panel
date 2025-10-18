@@ -15,6 +15,10 @@ import {
   Button,
   useTheme,
   useMediaQuery,
+  Menu,
+  MenuItem,
+  Tooltip,
+  Avatar,
 } from "@mui/material";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -25,7 +29,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useNavigate, NavLink, Outlet } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/authSlice";
 import { useState } from "react";
 
@@ -63,24 +67,31 @@ const AdminLayout = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const theme = useTheme();
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const userEmail = localStorage.getItem("email") || "admin@example.com";
-  const userName = userEmail.split("@")[0];
-
+  const settings = isLoggedIn && [
+    { label: "Profile", path: "profile" },
+    { label: "Order", path: "orders" },
+    { label: "Logout", path: "/logout" },
+  ];
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleNavigate = (path) => {
-    if (path === "/logout") {
-      dispatch(authActions.logout());
-      navigate("/login");
-      return;
-    }
-    navigate(path);
-    if (isMobile) setMobileOpen(false);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+
+  const handleLogout = () => {
+    dispatch(authActions.logout());
+    navigate("/login");
   };
 
   const drawer = (
@@ -137,13 +148,50 @@ const AdminLayout = () => {
             Admin Panel
           </Typography>
 
-          <Typography variant="subtitle1" sx={{ mr: 2 }}>
-            {userName}
+          <Typography variant="subtitle1" noWrap component="div" sx={{ mr: 2 }}>
+            {/* {userName} */}
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar />
+              </IconButton>
+            </Tooltip>
+            {isLoggedIn && (
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting.label}
+                    onClick={() => {
+                      handleCloseUserMenu();
+                      if (setting.label === "Logout") {
+                        handleLogout();
+                      } else {
+                        navigate(setting.path);
+                      }
+                    }}
+                  >
+                    <Typography sx={{ textAlign: "center" }}>
+                      {setting.label}
+                    </Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            )}
           </Typography>
-
-          <Button color="inherit" onClick={() => handleNavigate("/logout")}>
-            Logout
-          </Button>
         </Toolbar>
       </AppBar>
 

@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import PublicRoute from "./pages/Auth/PublicRoute";
 import ProtectedRoute from "./pages/Auth/ProtectedRoute";
 import RecipesPage from "./pages/Recipes/RecipesPage";
+import ProfilePage from "./pages/Profile/Profile";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -52,6 +53,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="dashboard" element={<DashboardPage />} />
+        <Route path="profile" element={<ProfilePage />} />
         <Route path="categories" element={<CategoriesPage />} />
         <Route path="recipes" element={<RecipesPage />} />
         <Route path="orders" element={<OrdersPage />} />
