@@ -101,7 +101,6 @@ const AdminLayout = () => {
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton
-              onClick={() => handleNavigate(item.path)}
               component={NavLink}
               to={item.path}
               sx={{
