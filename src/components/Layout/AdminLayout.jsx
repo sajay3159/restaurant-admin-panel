@@ -12,7 +12,6 @@ import {
   ListItemText,
   Toolbar,
   Typography,
-  Button,
   useTheme,
   useMediaQuery,
   Menu,
