@@ -53,25 +53,21 @@ const Dashboard = () => {
       title: "Categories",
       count: stats.categoriesCount,
       icon: <CategoryIcon sx={{ fontSize: 40, color: "#1976d2" }} />,
-      color: "#e3f2fd",
     },
     {
       title: "Recipes",
       count: stats.recipesCount,
       icon: <MenuBookIcon sx={{ fontSize: 40, color: "#388e3c" }} />,
-      color: "#e8f5e9",
     },
     {
       title: "Orders",
       count: stats.ordersCount,
       icon: <ShoppingCartIcon sx={{ fontSize: 40, color: "#f57c00" }} />,
-      color: "#fff3e0",
     },
     {
       title: "Pending Orders",
       count: stats.pendingOrdersCount,
       icon: <PendingActionsIcon sx={{ fontSize: 40, color: "#d32f2f" }} />,
-      color: "#ffebee",
     },
   ];
 
