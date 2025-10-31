@@ -141,7 +141,6 @@ const AdminLayout = () => {
           </Typography>
 
           <Typography variant="subtitle1" noWrap component="div" sx={{ mr: 2 }}>
-            {/* {userName} */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar />
