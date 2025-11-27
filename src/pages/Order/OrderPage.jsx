@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { getOrders, updateOrderStatus } from "../../api/order";
 import NotificationSnackbar from "../../components/Common/NotificationSnackbar";
+import OrderSortDropdown from "../../components/Common/OrderSortDropdown";
 
 const statuses = [
   "Pending",
@@ -32,7 +33,10 @@ const OrdersPage = () => {
     setLoading(true);
     try {
       const data = await getOrders();
-      setOrders(data);
+      const sorted = [...data].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+      setOrders(sorted);
     } catch (error) {
       setSnackbar({
         open: true,
@@ -42,6 +46,16 @@ const OrdersPage = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSortChange = (sortType) => {
+    const sorted = [...orders];
+    if (sortType === "newest") {
+      sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (sortType === "oldest") {
+      sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+    setOrders(sorted);
   };
 
   const handleStatusChange = async (orderId, newStatus) => {
@@ -75,6 +89,21 @@ const OrdersPage = () => {
           Loading...
         </Box>
       )}
+      <Typography variant="h4" gutterBottom align="center" sx={{ mt: 4 }}>
+        Recent Orders
+      </Typography>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          mb: 2,
+          width: "100%",
+        }}
+      >
+        <Box sx={{ marginLeft: "auto" }}>
+          <OrderSortDropdown onSortChange={handleSortChange} />
+        </Box>
+      </Box>
       <Stack spacing={2}>
         {orders.map((order) => (
           <Card
