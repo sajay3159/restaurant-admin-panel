@@ -8,6 +8,7 @@ import PendingActionsIcon from "@mui/icons-material/PendingActions";
 import { getCategories } from "../../api/categories";
 import { getRecipes } from "../../api/recipe";
 import { getOrders } from "../../api/order";
+import Chart from "react-apexcharts";
 
 const Dashboard = () => {
   const [stats, setStats] = useState({
@@ -104,6 +105,39 @@ const Dashboard = () => {
               </Grid>
             ))}
           </Grid>
+          <Box sx={{ mt: 2 }}>
+            <Card>
+              <CardContent>
+                <Typography>Overview Chart</Typography>
+                <Chart
+                  type="bar"
+                  height={350}
+                  series={[
+                    {
+                      name: "Count",
+                      data: [
+                        stats.categoriesCount,
+                        stats.recipesCount,
+                        stats.ordersCount,
+                        stats.pendingOrdersCount,
+                      ],
+                    },
+                  ]}
+                  options={{
+                    xaxis: {
+                      categories: [
+                        "Categories",
+                        "Recipes",
+                        "Orders",
+                        "Pending Orders",
+                      ],
+                    },
+                    colors: ["#1976d2"],
+                  }}
+                />
+              </CardContent>
+            </Card>
+          </Box>
         </>
       )}
     </Box>
