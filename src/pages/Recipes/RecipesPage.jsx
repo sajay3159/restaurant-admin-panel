@@ -97,10 +97,6 @@ const RecipesPage = () => {
     setEditData(recipe);
   };
 
-  const handleCancelEdit = () => {
-    setEditData(null);
-  };
-
   const handleDeleteClick = (id) => {
     setDeleteDialog({ open: true, idToDelete: id });
   };
